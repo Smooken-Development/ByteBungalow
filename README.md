@@ -5,3 +5,4 @@ __Authors__
 * Zachary A. Carmichael - (Project Lead | Lead Developer | Web Scraper)
 * Shabhan "Andrew" George - (Documentation Specialist | QA Programmer | Main Database Maintainer)
 * Michael Gremse - (Data Analyst | Algorithm Designer | Data Visualization)
+
