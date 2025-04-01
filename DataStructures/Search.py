@@ -1,6 +1,20 @@
 from Listings import Listing as Lst
+"""
+This module contains the Search class, which is used to store the parameters of a search.
+"""
 class Search:
     def __init__(self, numRooms, utilsIncluded, minRent, maxRent, hostSite, favorited):
+        """
+        Initialize a Search object with the given parameters.
+
+        Parameters:
+        numRooms (int): Number of rooms in the listing
+        utilsIncluded (bool): Whether utilities are included in the rent
+        minRent (int): Minimum rent
+        maxRent (int): Maximum rent
+        hostSite (str): The website the listing is hosted on
+        favorited (bool): Whether the listing is favorited or not
+        """
         self.numRooms = numRooms
         self.utilsIncluded = utilsIncluded
         self.minRent = minRent

@@ -1,38 +1,29 @@
 # FIX ME: I can't get the stupid modules to import again
-print("Running Main.py")
-print("Importing DataStructures.Listings")
-from DataStructures.Listings import Listing as Lst
-print("Imported DataStructures.Listings")
-print("Importing DataStructures.Database")
-from DataStructures.Database import ListingDatabase
-print("Imported DataStructures.Database")
+try:
+    from DataStructures.Listings import Listing as Lst
+except ImportError:
+    print("Failed to import DataStructures.Listings")
+    Lst = None
+try:
+    from DataStructures.Search import Search
+except ImportError:
+    print("Failed to import DataStructures.Search")
+    Search = None
+try:
+    from DataStructures.Database import ListingDatabase
+except ImportError:
+    print("Failed to import ListingDatabase from DataStructures.Database")
+    ListingDatabase = None
 
 
 def main():
-    print("Running Main.py")
-    db = ListingDatabase()
+    if Lst is None:
+        print("Failed to import DataStructures.Listings")
+    if Search is None:
+        print("Failed to import DataStructures.Search")
+    if ListingDatabase is None:
+        print("Failed to import ListingDatabase from DataStructures.Database")
+    return
 
-    testListing = Lst(
-        unitIndex = 0,
-        name = "Test Listing",
-        address = "123 Test Street",
-        numRooms = 3,
-        utilsIncluded = True,
-        rentAmt = 1000,
-        listingURL = "https://testlisting.com",
-        hostSite = "Test Site",
-        notes = "Test Notes",
-        favorited = True
-    )
-
-    db.addListing(testListing)
-    print("Added test listing to database")
-
-    listings = db.getAllListings()
-    for listing in listings:
-        print(listing)
-
-    db.close()
-
-print("Accessing Main.py")
-main()
+if __name__ == "__main__":
+    main()

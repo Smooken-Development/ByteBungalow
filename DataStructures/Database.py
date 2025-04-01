@@ -1,5 +1,5 @@
-from DataStructures.Listings import Listing
-import Search
+from Listings import Listing
+from Search import Search
 import sqlite3
 
 
@@ -28,7 +28,7 @@ class ListingDatabase:
         notes: Any notes about the listing
         favorited: Whether or not the listing is favorited
         '''
-        self.cursor.execute(''''
+        self.cursor.execute('''
             CREATE TABLE IF NOT EXISTS ListingsTable (
                 unitIndex INTEGER PRIMARY KEY,
                 name TEXT,
@@ -54,7 +54,8 @@ class ListingDatabase:
         Raises:
             TypeError: If the listing is not of type Listing
         """
-
+        # FIX ME:
+        # If listing already exists, print error message saying so
         if not isinstance(listing, Listing):
             raise TypeError(f"{listing} must be of type Listing")
         self.cursor.execute('''
