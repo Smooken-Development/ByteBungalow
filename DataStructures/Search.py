@@ -19,21 +19,42 @@ class Search:
     # _____Search Functions_____
 
     def clearSettings(self):
+        # FINISHME:
+        # Clear all attributes
         pass
 
     def fillEmptyAttributes(self):
+        # FINISHME:
+        # If any attributes have no input,
+        # fill attributes with default values
         pass
 
     def getResults(self):
+        # FINISHME:
+        # fillEmptyAttributes()
+        # Query the database
+        # if input matches,
+        #   populateTemptList(results)
+        # else
+        #   continue
+        # sortResults(results)
         pass
 
     def populateTempList(self):
+        # FINISHME:
+        # self.temptList = results
+        # might need to use a loop of somekind here
         pass
 
     def populateTemptListALL(self):
+        # FINISHME:
+        # for item in database:
+        #     self.temptList.append(item)
         pass
 
     def sortResults(self):
+        # FINISHME:
+        
         pass
 
 
