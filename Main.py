@@ -1,26 +1,38 @@
+# FIX ME: I can't get the stupid modules to import again
+print("Running Main.py")
+print("Importing DataStructures.Listings")
 from DataStructures.Listings import Listing as Lst
+print("Imported DataStructures.Listings")
+print("Importing DataStructures.Database")
+from DataStructures.Database import ListingDatabase
+print("Imported DataStructures.Database")
 
 
 def main():
-    import matplotlib.pyplot as plt
+    print("Running Main.py")
+    db = ListingDatabase()
 
-    # Sample data
-    x = [1, 2, 3, 4, 5]
-    y = [10, 20, 25, 30, 40]
+    testListing = Lst(
+        unitIndex = 0,
+        name = "Test Listing",
+        address = "123 Test Street",
+        numRooms = 3,
+        utilsIncluded = True,
+        rentAmt = 1000,
+        listingURL = "https://testlisting.com",
+        hostSite = "Test Site",
+        notes = "Test Notes",
+        favorited = True
+    )
 
-    # Create the plot
-    plt.plot(x, y, marker='o', linestyle='-', color='b', label="Line Graph")
+    db.addListing(testListing)
+    print("Added test listing to database")
 
-    # Add labels and title
-    plt.xlabel("X Axis")
-    plt.ylabel("Y Axis")
-    plt.title("Simple Line Plot with Matplotlib")
+    listings = db.getAllListings()
+    for listing in listings:
+        print(listing)
 
-    # Add a legend
-    plt.legend()
+    db.close()
 
-    # Show the plot
-    plt.show()
-
-
+print("Accessing Main.py")
 main()
