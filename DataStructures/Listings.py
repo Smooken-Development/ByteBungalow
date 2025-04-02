@@ -2,6 +2,9 @@ import webbrowser as wb
 import pyperclip
 
 class Listing:
+    """
+    The Listing class, used to make objects for use in the database
+    """
     def __init__(self, unitIndex, name, address, numRooms, utilsIncluded, rentAmt, listingURL, hostSite, notes="", favorited=False):
         self.unitIndex = unitIndex
         self.name = name

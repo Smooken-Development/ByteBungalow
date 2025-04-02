@@ -1,4 +1,4 @@
-from Database import ListingDatabase
+from DataStructures.BBDatabase import ListingDatabase
 from Listings import Listing as Lst
 
 db = ListingDatabase()

@@ -1,7 +1,5 @@
 from Listings import Listing
-from Search import Search
 import sqlite3
-
 
 class ListingDatabase:
     """
@@ -53,23 +51,28 @@ class ListingDatabase:
 
         Raises:
             TypeError: If the listing is not of type Listing
+            sqlite3.Error: If there is a database error
         """
         # FIX ME:
         # If listing already exists, print error message saying so
         if not isinstance(listing, Listing):
             raise TypeError(f"{listing} must be of type Listing")
-        self.cursor.execute('''
-            INSERT INTO ListingsTable (unitIndex, name, address, numRooms, utilsIncluded, rentAmt, listingURL, hostSite, notes, favorited)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-        ''', (listing.unitIndex, listing.name, listing.address, listing.numRooms, listing.utilsIncluded, listing.rentAmt, listing.listingURL, listing.hostSite, listing.notes, listing.favorited))
-        self.conn.commit()
+        try:
+            self.cursor.execute('''
+                INSERT INTO ListingsTable (unitIndex, name, address, numRooms, utilsIncluded, rentAmt, listingURL, hostSite, notes, favorited)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            ''', (listing.unitIndex, listing.name, listing.address, listing.numRooms, listing.utilsIncluded, listing.rentAmt, listing.listingURL, listing.hostSite, listing.notes, listing.favorited))
+            self.conn.commit()
+            print(f"Added {listing.name} to the database")
+        except sqlite3.Error as e:
+            print(f"An error occurred: {e}")
 
     def getAllListings(self):
         self.cursor.execute('''
             SELECT * FROM ListingsTable
         ''')
         listings = self.cursor.fetchall()
-        return listings
+        return [Listing(*listing) for listing in listings]
     
     def getListing(self, unitIndex):
         self.cursor.execute('''
@@ -115,4 +118,4 @@ class ListingDatabase:
     def search(self, query):
         # FINISH ME:
         # Connect this to the appropriate function in "Search.py"
-        return Search.search(query)
+        return #Search.search(query)
