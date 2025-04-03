@@ -126,20 +126,3 @@ class LstSearch:
         self.favorited = favorited  # This doesn't favorite the listing, it's to search only for favorited listings in the DB
 
 
-# FINISH ME: Finish putting test listings into the DB
-search = LstSearch()
-db = ListingDatabase()
-
-newListing = Lst(20,
-    "Beachfront Condo",
-    "890 Birch Ave",
-    2,
-    False,
-    2400,
-    "http://example.com/listing20",
-    "ApartmentList.com",
-    "Ocean view",
-    False
-)
-
-db.addListing(newListing)

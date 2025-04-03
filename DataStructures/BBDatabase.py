@@ -53,17 +53,24 @@ class ListingDatabase:
             TypeError: If the listing is not of type Listing
             sqlite3.Error: If there is a database error
         """
-        # FIX ME:
-        # If listing already exists, print error message saying so
+        # If listing already exists, add 1 to unitIndex and addListing
         if not isinstance(listing, Listing):
             raise TypeError(f"{listing} must be of type Listing")
         try:
             self.cursor.execute('''
-                INSERT INTO ListingsTable (unitIndex, name, address, numRooms, utilsIncluded, rentAmt, listingURL, hostSite, notes, favorited)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-            ''', (listing.unitIndex, listing.name, listing.address, listing.numRooms, listing.utilsIncluded, listing.rentAmt, listing.listingURL, listing.hostSite, listing.notes, listing.favorited))
-            self.conn.commit()
-            print(f"Added {listing.name} to the database")
+                SELECT * FROM ListingsTable WHERE unitIndex = ?
+            ''', (listing.unitIndex,))
+            if self.cursor.fetchone() is not None:
+                print(f"{listing.name} already exists in the database. Adding 1 to the unitIndex and adding the listing.")
+                listing.unitIndex += 1
+                self.addListing(listing)
+            else:
+                self.cursor.execute('''
+                    INSERT INTO ListingsTable (unitIndex, name, address, numRooms, utilsIncluded, rentAmt, listingURL, hostSite, notes, favorited)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                ''', (listing.unitIndex, listing.name, listing.address, listing.numRooms, listing.utilsIncluded, listing.rentAmt, listing.listingURL, listing.hostSite, listing.notes, listing.favorited))
+                self.conn.commit()
+                print(f"Added {listing.name} to the database")
         except sqlite3.Error as e:
             print(f"An error occurred: {e}")
 
