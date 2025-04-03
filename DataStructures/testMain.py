@@ -3,26 +3,22 @@ from Listings import Listing as Lst
 from BBSearch import LstSearch
 
 db = ListingDatabase()
+searchFunc = LstSearch()
 
-testListing = Lst(
-    unitIndex = 0,
-    name = "Test Listing",
-    address = "123 Test Street",
-    numRooms = 3,
-    utilsIncluded = True,
-    rentAmt = 1000,
-    listingURL = "https://testlisting.com",
-    hostSite = "Test Site",
-    notes = "Test Notes",
-    favorited = True
-)
-
-db.updateListing(testListing)
-
-listings = db.getAllListings()
+"""listings = db.getAllListings()
 print("____Listings:____")
 print("Listing Object: unitIndex | name | address | numRooms | utilsIncluded | rentAmt | listingURL | hostSite | notes | favorited")
 for listing in listings:
     print(listing)
 
-db.close()
+db.close()"""
+
+print("\n\n\n")
+
+searchFunc.getResults()
+
+searchFunc.sortResults("rent", "asc")
+print("____Sorted Listings:____")
+print("Listing Object: unitIndex | name | address | numRooms | utilsIncluded | rentAmt | listingURL | hostSite | notes | favorited")
+for listing in searchFunc.temptList:
+    print(listing)

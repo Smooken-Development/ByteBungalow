@@ -1,4 +1,7 @@
-from DataStructures.BBSearch import LstSearch, ListingDatabase, Lst
+
+from DataStructures.BBDatabase import ListingDatabase
+from DataStructures.Listings import Listing as Lst
+from DataStructures.BBSearch import LstSearch
 
 
 def main():
