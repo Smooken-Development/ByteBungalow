@@ -15,16 +15,16 @@ class ListingDatabase:
         '''
         Creates the ListingsTable in the database if it does not already exist.
 
-        unitIndex: The index of the unit in the database
-        name: The name of the listing
-        address: The address of the listing
-        numRooms: The number of rooms in the listing
-        utilsIncluded: Whether the utilities are included in the listing
-        rentAmt: The rent amount of the listing
-        listingURL: The URL of the listing
-        hostSite: The site the listing is hosted on
-        notes: Any notes about the listing
-        favorited: Whether or not the listing is favorited
+        * unitIndex: The index of the unit in the database
+        * name: The name of the listing
+        * address: The address of the listing
+        * numRooms: The number of rooms in the listing
+        * utilsIncluded: Whether the utilities are included in the listing
+        * rentAmt: The rent amount of the listing
+        * listingURL: The URL of the listing
+        * hostSite: The site the listing is hosted on
+        * notes: Any notes about the listing
+        * favorited: Whether or not the listing is favorited
         '''
         self.cursor.execute('''
             CREATE TABLE IF NOT EXISTS ListingsTable (
@@ -75,6 +75,13 @@ class ListingDatabase:
             print(f"An error occurred: {e}")
 
     def getAllListings(self):
+        """
+        Retrieves all listings from the database.
+
+        Returns:
+            List[Listing]: A list of all listings in the database
+        """
+
         self.cursor.execute('''
             SELECT * FROM ListingsTable
         ''')
@@ -89,6 +96,9 @@ class ListingDatabase:
         return listing
     
     def deleteListing(self, unitIndex):
+        """
+        Deletes a listing from the database based on unitIndex.
+        """
         self.cursor.execute('''
             DELETE FROM ListingsTable WHERE unitIndex = ?
         ''', (unitIndex,))
@@ -121,8 +131,3 @@ class ListingDatabase:
         is properly closed when it is no longer needed.
         """
         self.conn.close()
-
-    def search(self, query):
-        # FINISH ME:
-        # Connect this to the appropriate function in "Search.py"
-        return #Search.search(query)
