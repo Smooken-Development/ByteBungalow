@@ -1,4 +1,4 @@
-from Listings import Listing as Lst
+from DataStructures.Listings import Listing as Lst
 from BBDatabase import ListingDatabase
 """
     Module: BBSearch

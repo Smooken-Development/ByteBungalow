@@ -1,4 +1,4 @@
-from Listings import Listing
+from DataStructures.Listings import Listing
 import sqlite3
 
 class ListingDatabase:
@@ -93,7 +93,7 @@ class ListingDatabase:
             SELECT * FROM ListingsTable WHERE unitIndex = ?
         ''', (unitIndex,))
         listing = self.cursor.fetchone()
-        return listing
+        return Listing(*listing) if listing else None
     
     def deleteListing(self, unitIndex):
         """
@@ -107,6 +107,15 @@ class ListingDatabase:
     def updateListing(self, listing: Listing):
         """
         Updates an existing listing in the database with new values.
+
+        # Example Usage:
+        To update individual attributes for a listing:
+
+            listing = db.getListing(unitIndex)
+            listing.favorite(True)
+            db.updateListing(listing)
+
+        You will need to look at the functions within the listing class to see which functions update the attributes.
 
         Args:
             listing (Listing): The listing object containing updated information. 
@@ -122,6 +131,7 @@ class ListingDatabase:
             WHERE unitIndex = ?
         ''', (listing.name, listing.address, listing.numRooms, listing.utilsIncluded, listing.rentAmt, listing.listingURL, listing.hostSite, listing.notes, listing.favorited, listing.unitIndex))
         self.conn.commit()
+        print(f"Updated {listing.name} in the database")
 
     def close(self):
         """
