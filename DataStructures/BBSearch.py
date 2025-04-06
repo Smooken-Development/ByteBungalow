@@ -106,7 +106,7 @@ class LstSearch:
             and (self.favorited is None or listing.favorited == self.favorited)
         ]
 
-        print("Results:", self.temptList)
+        # print("Results:", self.temptList)
         return self.temptList
 
     def sortResults(self, criteria, order) -> None:
