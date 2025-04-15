@@ -33,17 +33,19 @@ while True:
 
     print(f"\t Search Parameters:\n\t\tFavorited: {searchFunc.favorited} \n\t\tMin Rent: {searchFunc.minRent} \n\t\tMax Rent: {searchFunc.maxRent} \n\t\tRooms: {searchFunc.numRooms} \n\t\tUtilities: {searchFunc.utilsIncluded} \n\t\tHost Site: {searchFunc.hostSite}")
 
-    print("""
-1. Set Favorited
-2. Set Rent Range
-4. Set Rooms
-5. Set Utilities
-6. Set Host Site
-7. Get Results
-8. Sort Results (asc)
-9. Sort Results (desc)
-10. Clear Settings
-0. Exit
+    print(f"{'─'*198}")
+
+    print("""Menu:
+    1. Set Favorited
+    2. Set Rent Range
+    4. Set Rooms
+    5. Set Utilities
+    6. Set Host Site
+    7. Get Results
+    8. Sort Results (asc)
+    9. Sort Results (desc)
+    10. Clear Settings
+    0. Exit
     """)
     choice = int(input("Input: "))
 
@@ -84,8 +86,3 @@ while True:
 
 
 db.close()
-
-
-
-
-    
