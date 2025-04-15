@@ -1,6 +1,7 @@
 from BBDatabase import ListingDatabase
 from DataStructures.Listings import Listing as Lst
 from BBSearch import LstSearch
+import os
 """
     TO DO:
     1. Format "Listing" to accomadate CLI application
@@ -14,84 +15,74 @@ from BBSearch import LstSearch
 if __name__ == "__main__":
     main()"""
 
-firstOpening = (
-"""
-            Hello! Welcome to ByteBungalow!
-            
-    Your one-stop shop for analyzing rental property data from some of the major rental sites and providing insightful graphs and filterable listings.
-"""
-)
-userName = ""
-searchCity = ""
-mainMenuText = (
-"""
-Welcome to ByteBungalow!
-    What would you like to do?
-        
-        1. Aggregate Listings (Update Database / Scour the Web for Listings!)
-        2. Edit your configurations
-        3. View your listings
-        4. Format Database
-        0. Exit
 
-"""
-)
 
 db = ListingDatabase()
 searchFunc = LstSearch()
-
-searchFunc.setRent(0, 1500)
-searchFunc.setIsFavorited(True)
-searchFunc.getResults()
-
-searchFunc.sortResults("rent", "desc")
-print(f"\n\n\n{'─'*198}\n      Sorted Listings:\n")
-print(f"   ID    {'Listing Name':<50}  {'Rent':<11} Rooms Utils    Host Site       Address                          URL                              Notes  \n{'─'*198}")
-for listing in searchFunc.temptList:
-    print(listing)
-    print(f"{'─'*198}")
 
 #newListing = db.getListing(6)
 #newListing.favorite()
 #db.updateListing(newListing)
 
-"""import os
-
-print(f"{'─'*198}")
-print(firstOpening)
-print(f"{'─'*198}")
-#userName = input("\tWhat would you like to be called?\n\t\tusername: ")
-print("\n\n\tWelcome to ByteBungalow, " + userName + "!")
-print(f"{'─'*198}")
-print("\n\n\tPlease give me one moment while I load your program...")
-os.system("cls")
-
-
-
-while choice != 0:
+while True:
     os.system("cls")
     print(f"{'─'*198}")
-    print(mainMenuText)
+    print("\tWelcome to ByteBungalow!",
+    "\n\tWhat would you like to do?")
     print(f"{'─'*198}")
-    choice = int(input("\n\nInput:  "))
+
+    print(f"\t Search Parameters:\n\t\tFavorited: {searchFunc.favorited} \n\t\tMin Rent: {searchFunc.minRent} \n\t\tMax Rent: {searchFunc.maxRent} \n\t\tRooms: {searchFunc.numRooms} \n\t\tUtilities: {searchFunc.utilsIncluded} \n\t\tHost Site: {searchFunc.hostSite}")
+
+    print(f"{'─'*198}")
+
+    print("""Menu:
+    1. Set Favorited
+    2. Set Rent Range
+    4. Set Rooms
+    5. Set Utilities
+    6. Set Host Site
+    7. Get Results
+    8. Sort Results (asc)
+    9. Sort Results (desc)
+    10. Clear Settings
+    0. Exit
+    """)
+    choice = int(input("Input: "))
 
     match choice:
         case 1:
-            print("Aggregate Listings")
+            searchFunc.setIsFavorited(not searchFunc.favorited)
         case 2:
-            print("Editing your configurations")
+            minRent = int(input("Min Rent: "))
+            maxRent = int(input("Max Rent: "))
+            searchFunc.setRent(minRent, maxRent)
         case 3:
-            print("Viewing your listings")
+            rooms = int(input("Rooms: "))
+            searchFunc.setRooms(rooms)
         case 4:
-            print("Formatting Database")
+            searchFunc.setUtilsIncluded(not searchFunc.utilsIncluded)
+        case 5:
+            hostSite = input("Host Site: ")
+            searchFunc.setHostSite(hostSite)
+        case 7:
+            searchFunc.getResults()
+            print(f"\n\n\n{'─'*198}\n      Sorted Listings:\n")
+            print(f"   ID    {'Listing Name':<50}  {'Rent':<11} Rooms Utils    Host Site       Address                          URL                              Notes  \n{'─'*198}")
+            for listing in searchFunc.temptList:
+                print(listing)
+                print(f"{'─'*198}")
+            input("Presss any button to continue")
+        case 8:
+            searchFunc.sortResults("rent", "asc")
+        case 9:
+            searchFunc.sortResults("rent", "desc")
+        case 10:
+            searchFunc.clearSettings()
         case 0:
-            print("Goodbye!")
-            break"""
+            break
+
+
+
 
 
 db.close()
-
-
-
-
-    
