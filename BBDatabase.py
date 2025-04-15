@@ -7,7 +7,7 @@ class ListingDatabase:
     """
     # def init
     def __init__(self, dbName="listings.db"):
-        self.conn = sqlite3.connect(dbName) # con is short for connect
+        self.conn = sqlite3.connect(dbName) # conn is short for connect
         self.cursor = self.conn.cursor()
         self.createTable()
 

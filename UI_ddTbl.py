@@ -1,85 +1,37 @@
-'''import customtkinter as ctk
-from tkinter import messagebox
-
-class ByteBungalowUI:
-    def __init__(self, root):
-        self.root = root
-        self.root.title("ByteBungalow")
-
-                                                         # main windowframes
-        self.main_frame = ctk.CTkFrame(self.root)
-        self.main_frame.pack(fill="both", expand=True)
-
-        self.top_frame = ctk.CTkFrame(self.main_frame)
-        self.top_frame.pack(fill="x")
-        self.middle_frame = ctk.CTkFrame(self.main_frame)
-        self.middle_frame.pack(fill="both", expand=True)
-        self.bottom_frame = ctk.CTkFrame(self.main_frame)
-        self.bottom_frame.pack(fill="x")
-
-                                                                            # top widgets
-        self.search_label = ctk.CTkLabel(self.top_frame, text="Search by:")
-        self.search_label.pack(side="left")
-
-        self.search_entry = ctk.CTkEntry(self.top_frame)
-        self.search_entry.pack(side="left")
-
-        self.search_button = ctk.CTkButton(self.top_frame, text="Search")
-        self.search_button.pack(side="left")
-
-                                                                                    # middle widgets
-        self.listings_label = ctk.CTkLabel(self.middle_frame, text="Rental Listings:")
-
-        self.listings_label.pack(side="top")
-
-        self.listings_tab = ctk.CTkTabview(self.middle_frame)
-        self.listings_tab.pack(side="top", fill="both", expand=True)
-
-                                                                                #  bottom  widgets
-        self.stats_label = ctk.CTkLabel(self.bottom_frame, text="Statistics:")
-        self.stats_label.pack(side="left")
-
-        self.stats_button = ctk.CTkButton(self.bottom_frame, text="View Statistics")
-        self.stats_button.pack(side="left")
-
-    def run(self):
-        self.root.mainloop()
-
-
-if __name__ == "__main__":
-    root = ctk.CTk()
-    ui = ByteBungalowUI(root)
-    ui.run()
-'''
 import sys
-sys.path.append('C:/Users/cheap/ByteBungalow/ByteBungalow/DataStructures')
+sys.path.append('C:/Users/cheap/ByteBungalow/ByteBungalow/')
 from DataStructures.Listings import Listing
 from BBDatabase import ListingDatabase
 from BBSearch import LstSearch
+
 import dash
 from dash import dcc
 from dash import html
+import dash_ag_grid as dag
+import dash_bootstrap_components as dbc
 from dash.dependencies import Input, Output
-import plotly.graph_objs as go
+ 
+#import plotly.graph_objs as go
+
 import matplotlib.pyplot as plt
 import io
 import base64
 
-app = dash.Dash(__name__)                           # create app
+app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])                           # create app
 
 db = ListingDatabase("listings.db")                 #database obj
 
 
 graph_data = []
-for listing in db.getAllListings():                #data to plot for graph
+for listing in db.getAllListings():                #pass from BBDatabase
     graph_data.append(listing.unitIndex)
     graph_data.append(listing.name)
-    graph_data.append(listing.rentAmt)
+    graph_data.append(listing.rentAmt)          #data to plot for graph
     graph_data.append(listing.numRooms)
 
 
 plt.figure(figsize=(10, 6))
-plt.bar(graph_data[0], graph_data[2])
+plt.bar(graph_data[2], graph_data[3])
 plt.xlabel("Number of Rooms")
 plt.ylabel("Rental Price")
 plt.title("Listing Data")
@@ -172,18 +124,10 @@ app.layout = html.Div([
             dcc.Input(id="delete-unit-index", type="number", placeholder="Unit Index"),
             html.Button("Delete Listing", id="delete-listing-button", n_clicks=0)
         ]),
-
-
-        html.Div([                                                  #display graph
-            html.H2("Plot Listings"),
-            dcc.Dropdown(id="plot-type", options=[
-                {"label": "Bar Chart", "value": "bar"},
-                {"label": "Scatter Plot", "value": "scatter"}
-            ], value="bar"),
-            html.Img(src="data:image/png;base64,{}".format(chart))
-        ])
     ])
 ])
+
+
 
 @app.callback(
     Output("listings-table", "children"),
@@ -202,7 +146,7 @@ app.layout = html.Div([
 def search_listings(n_clicks, search_value):
     if n_clicks > 0:
         search_ = LstSearch()
-        search_.setRent(0,1500)          #default range
+        search_.setRent(0,1500)                         #default range
         search_results = search_.getResults()
         if search_results:
             return html.Div([html.P(f"Results for '{search_value}':"), 
@@ -210,6 +154,9 @@ def search_listings(n_clicks, search_value):
         else:
             return html.P(f"No results found for '{search_value}'")
     return ""
+
+
+
 def add_listing(n_clicks, unit_index, name, address, num_rooms, utils_included, rent_amt, listing_url, host_site, notes, favorited):
     if n_clicks > 0:
         listing = Listing(unit_index, name, address, num_rooms, utils_included, rent_amt, listing_url, host_site, notes, favorited)

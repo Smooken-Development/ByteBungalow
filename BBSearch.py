@@ -125,6 +125,7 @@ class LstSearch:
                     # if rent: sorts rent by asc or desc
                     if order == "asc":
                         self.temptList.sort(key=lambda x: x.rentAmt)
+                         
                     else:
                         self.temptList.sort(key=lambda x: x.rentAmt, reverse=True)
                 case "rooms":
