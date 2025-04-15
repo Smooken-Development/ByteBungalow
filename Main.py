@@ -15,8 +15,6 @@ import os
 if __name__ == "__main__":
     main()"""
 
-
-
 db = ListingDatabase()
 searchFunc = LstSearch()
 
@@ -38,9 +36,9 @@ while True:
     print("""Menu:
     1. Set Favorited
     2. Set Rent Range
-    4. Set Rooms
-    5. Set Utilities
-    6. Set Host Site
+    3. Set Rooms
+    4. Set Utilities
+    5. Set Host Site
     7. Get Results
     8. Sort Results (asc)
     9. Sort Results (desc)
@@ -60,7 +58,7 @@ while True:
             rooms = int(input("Rooms: "))
             searchFunc.setRooms(rooms)
         case 4:
-            searchFunc.setUtilsIncluded(not searchFunc.utilsIncluded)
+            searchFunc.setUtilities(not searchFunc.utilsIncluded)
         case 5:
             hostSite = input("Host Site: ")
             searchFunc.setHostSite(hostSite)
@@ -80,6 +78,9 @@ while True:
             searchFunc.clearSettings()
         case 0:
             break
+        case _:
+            print("Invalid Input")
+            input("Presss any button to continue")
 
 
 
