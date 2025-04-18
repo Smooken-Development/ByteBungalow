@@ -141,3 +141,21 @@ class ListingDatabase:
         is properly closed when it is no longer needed.
         """
         self.conn.close()
+
+    def sizeOfDatabase(self):
+        """Get the number of entries in the database"""
+        self.cursor.execute('''
+            SELECT COUNT(*) FROM ListingsTable
+        ''')
+        return self.cursor.fetchone()[0]
+
+    def clearDatabase(self):
+        """This will be to factor the database"""
+        # FINISH ME:
+        print("Not yet, scary function")
+
+
+db = ListingDatabase()
+num = db.sizeOfDatabase()
+print(num)
+db.close()

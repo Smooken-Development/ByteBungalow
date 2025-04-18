@@ -3,7 +3,7 @@ from BBDatabase import ListingDatabase
 import json
 
 tempListings = []
-tempPath = r"D:\1 - Computer Science Classes\ByteBungalow\ByteBungalow\DataStructures\tempListings.json"
+tempPath = "TempCache.json"
 
 def readFromListingCache(path):
     with open(path, "r") as f:
@@ -31,7 +31,7 @@ def writeListingsToDB():
         db.addListing(listing)
     db.close()
 
-# readFromListingCache(tempPath)
-
-#print(listing)
 print(f"   ID    {'Listing Name':<50}  {'Rent':<11} Rooms Utils    Host Site       Address                          URL                              Notes  \n{'─'*198}")
+readFromListingCache(tempPath)
+# writeListingsToDB()
+

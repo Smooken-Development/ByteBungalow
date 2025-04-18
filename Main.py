@@ -18,6 +18,10 @@ if __name__ == "__main__":
 db = ListingDatabase()
 searchFunc = LstSearch()
 
+"""newList = searchFunc.getResults()
+for i in newList:
+    print(i.name)"""
+
 #newListing = db.getListing(6)
 #newListing.favorite()
 #db.updateListing(newListing)
@@ -33,17 +37,17 @@ while True:
 
     print(f"{'─'*198}")
 
-    print("""Menu:
-    1. Set Favorited
-    2. Set Rent Range
-    3. Set Rooms
-    4. Set Utilities
-    5. Set Host Site
-    7. Get Results
-    8. Sort Results (asc)
-    9. Sort Results (desc)
-    10. Clear Settings
-    0. Exit
+    print("""   Menu:
+        1. Set Favorited
+        2. Set Rent Range
+        3. Set Rooms
+        4. Set Utilities
+        5. Set Host Site
+        7. Get Results
+        8. Sort Results (asc)
+        9. Sort Results (desc)
+        10. Clear Settings
+        0. Exit
     """)
     choice = int(input("Input: "))
 
