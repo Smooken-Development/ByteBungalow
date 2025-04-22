@@ -62,7 +62,7 @@ class LstSearch:
         self.hostSite = hostSite
         self.favorited = favorited
 
-        self.temptList = []    # This is to easily sort listings into
+        self.tempList = []                              # This is to easily sort listings 
 
     def __str__(self)->str:
         return f"Search Parameters: {self.numRooms} {self.utilsIncluded} {self.minRent} {self.maxRent} {self.hostSite} {self.favorited}" 
@@ -72,6 +72,7 @@ class LstSearch:
         return f"Search Parameters: {self.address} {self.numRooms} {self.utilsIncluded} {self.minRent} {self.maxRent} {self.hostSite} {self.favorited}"
     
     # _____Search Functions_____
+    
     def clearSettings(self)->None:
         """Clears the Search Parameters"""
         # Set all parameters to None
@@ -85,9 +86,9 @@ class LstSearch:
     def fillEmptyAttributes(self):
         """This corrects 'None' values for minRent and maxRent to 0 and positive infinity."""
         if self.minRent is None or self.minRent < 0:
-            self.minRent = 0  # Set default minimum rent to 0
+            self.minRent = 0                                            # Set default minimum rent to 0
         if self.maxRent is None or self.maxRent < 0:
-            self.maxRent = float('inf')  # No upper limit on rent
+            self.maxRent = float('inf')                                    # No upper limit on rent
 
     def getResults(self):
         """
@@ -96,7 +97,7 @@ class LstSearch:
         self.fillEmptyAttributes()
         allListings = self.db.getAllListings()
 
-        self.temptList = [
+        self.tempList = [
             listing for listing in allListings
             if (self.numRooms is None or listing.numRooms == self.numRooms)
             and (self.utilsIncluded is None or listing.utilsIncluded == self.utilsIncluded)
@@ -106,8 +107,8 @@ class LstSearch:
             and (self.favorited is None or listing.favorited == self.favorited)
         ]
 
-        # print("Results:", self.temptList)
-        return self.temptList
+        # print("Results:", self.tempList)
+        return self.tempList
 
     def sortResults(self, criteria, order) -> None:
         """Sorts the Listing (Lst) based on the given criteria and order.
@@ -115,7 +116,6 @@ class LstSearch:
         Usage:
 
             criteria (str): The criteria to sort by (rent or rooms)
-
             order (str): The order to sort in ascending or descending (asc or desc)
         """
         try:
@@ -124,16 +124,16 @@ class LstSearch:
                 case "rent":
                     # if rent: sorts rent by asc or desc
                     if order == "asc":
-                        self.temptList.sort(key=lambda x: x.rentAmt)
+                        self.tempList.sort(key=lambda x: x.rentAmt)
                          
                     else:
-                        self.temptList.sort(key=lambda x: x.rentAmt, reverse=True)
+                        self.tempList.sort(key=lambda x: x.rentAmt, reverse=True)
                 case "rooms":
                     # if rooms: sorts rooms by asc or desc
                     if order == "asc":
-                        self.temptList.sort(key=lambda x: x.numRooms)
+                        self.tempList.sort(key=lambda x: x.numRooms)
                     else:
-                        self.temptList.sort(key=lambda x: x.numRooms, reverse=True)
+                        self.tempList.sort(key=lambda x: x.numRooms, reverse=True)
         except Exception as e:
             print(f"There was an error sorting results for {criteria} in {order} order: {e}")
 

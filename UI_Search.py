@@ -1,4 +1,4 @@
-from dash import Dash, html, dcc, Input, Output
+from dash import Dash, html, dcc, Input, Output, callback
 import dash_bootstrap_components as dbc
 import matplotlib
 matplotlib.use('agg')                       #compatibility with webapps
@@ -10,6 +10,11 @@ from BBSearch import LstSearch
 
 searchFunc = LstSearch()
 data = {}
+'''nav bar/ search function '''
+searchparams =                 #get listings from BBsearch
+for i in searchparams:                       #get listings from BBsearch
+    if 
+
 
 '''Rent Averages by Host Site'''
 for i in searchFunc.getResults():            #get listings from BBsearch    
@@ -39,6 +44,8 @@ sites = list(data.keys())                           # dict keys
 
 app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 
+
+'''Display initial graph'''
 fig, ax = plt.subplots(figsize=(10, 5))     
 ax.bar(sites, room_avgs, color='skyblue')           #bar graph
 ax.set_xlabel("Sites")
@@ -54,7 +61,6 @@ image_base64 = base64.b64encode(buffer.getvalue()).decode("ascii")  #convert mat
 
 app.layout = dbc.Container([
     html.H1("Byte Bungalow", style={"textAlign": "center"}),            #title
-        html.Div([
         html.Div([
             html.H2("Search Listings"),
             dcc.Input(id="search-input", type="text", placeholder="Search by name, address, or host site"),
@@ -91,7 +97,13 @@ app.layout = dbc.Container([
                 ]) for listing in searchFunc.tempList               # get listings from db
             ])
         ]),
-    ]),
+    
+        html.Div([
+
+        dcc.RangeSlider( 0,20, marks= None, value=[0, 20], id="range-slider"),         #slider for range
+        html.Div(id="output-container-range-slider"),         
+        ]),       
+        
 
     dbc.Row([                                                   #display graph
         dbc.Col([
@@ -99,6 +111,28 @@ app.layout = dbc.Container([
         ], width=10)
     ], className="mt-3"),
 ])
+@callback(
+    Output("output-container-range-slider", "children"),
+    Output("matplotlib-image", "src"),
+    Input("range-slider", "value")
+    Input("search-input", "value")
+)
+
+def update_graph(val_list):
+    fig, ax = plt.subplots(figsize=(10, 5))     
+    ax.bar(sites, room_avgs, color='skyblue')           #bar graph
+    ax.set_xlabel("Sites")
+    ax.set_ylabel("average rent")
+    ax.set_ylim(val_list[0], val_list[1])                   #yaxis range
+    plt.xticks(rotation=45)
+    plt.tight_layout()                          #fits graph in window
+
+    buffer = BytesIO()
+    fig.savefig(buffer, format="png")
+    buffer.seek(0)
+    image_base64 = base64.b64encode(buffer.getvalue()).decode("ascii")  #convert matplotlib graph to img    
+
+    return "", f"data:image/png;base64,{image_base64}"      #return graph
 
 if __name__ == "__main__":
-    app.run(debug=False, port=8002)
+    app.run(debug=False, port=8002) 
