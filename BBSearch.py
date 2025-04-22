@@ -42,7 +42,7 @@ class LstSearch:
     * setUtilsIncluded() # Search for listings with utilities included (bool)
     * fillEmptyAttributes() # Safety function: see function for use case
     """
-    def __init__(self, numRooms=None, utilsIncluded=None, minRent=None, maxRent=None, hostSite=None, favorited=None):
+    def __init__(self, numRooms=None, utilsIncluded=None, minRent=None, maxRent=None, hostSite=None, favorited=None, criteria=None, order=None):
         """
         Initialize a Search object with the given parameters.
 
@@ -61,6 +61,8 @@ class LstSearch:
         self.maxRent = maxRent
         self.hostSite = hostSite
         self.favorited = favorited
+        self.criteria = criteria
+        self.order = order
 
         self.tempList = []                              # This is to easily sort listings 
 
@@ -107,10 +109,12 @@ class LstSearch:
             and (self.favorited is None or listing.favorited == self.favorited)
         ]
 
+        self.sortResults(self.criteria, self.order)
+
         # print("Results:", self.tempList)
         return self.tempList
 
-    def sortResults(self, criteria, order) -> None:
+    def sortResults(self, criteria: str = None, order: str = None) -> None:
         """Sorts the Listing (Lst) based on the given criteria and order.
         
         Usage:
@@ -124,18 +128,18 @@ class LstSearch:
                 case "rent":
                     # if rent: sorts rent by asc or desc
                     if order == "asc":
-                        self.tempList.sort(key=lambda x: x.rentAmt)
+                        self.temptList.sort(key=lambda x: x.rentAmt)
                          
                     else:
-                        self.tempList.sort(key=lambda x: x.rentAmt, reverse=True)
+                        self.temptList.sort(key=lambda x: x.rentAmt, reverse=True)
                 case "rooms":
                     # if rooms: sorts rooms by asc or desc
                     if order == "asc":
-                        self.tempList.sort(key=lambda x: x.numRooms)
+                        self.temptList.sort(key=lambda x: x.numRooms)
                     else:
-                        self.tempList.sort(key=lambda x: x.numRooms, reverse=True)
+                        self.temptList.sort(key=lambda x: x.numRooms, reverse=True)
         except Exception as e:
-            print(f"There was an error sorting results for {criteria} in {order} order: {e}")
+            print(f"There was an error sorting results for {self.criteria} in {self.order} order: {e}")
 
     # _____Setters_____
     # These are to make life simpler when we're doing the UI. When using these

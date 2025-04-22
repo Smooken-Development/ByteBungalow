@@ -21,9 +21,9 @@ class Listing:
         self.unitIndex = unitIndex
         self.name = name
         self.address = address
-        self.numRooms = numRooms
+        self.numRooms = int(numRooms)
         self.utilsIncluded = utilsIncluded
-        self.rentAmt = rentAmt
+        self.rentAmt = float(rentAmt)
         self.listingURL = listingURL
         self.hostSite = hostSite
         self.notes = notes
