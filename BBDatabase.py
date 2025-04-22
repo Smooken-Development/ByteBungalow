@@ -150,12 +150,10 @@ class ListingDatabase:
         return self.cursor.fetchone()[0]
 
     def clearDatabase(self):
-        """This will be to factor the database"""
-        # FINISH ME:
-        print("Not yet, scary function")
-
-
-db = ListingDatabase()
-num = db.sizeOfDatabase()
-print(num)
-db.close()
+        """This will be to factor the database. Deleting all entries."""
+        self.cursor.execute('''
+            DELETE FROM ListingsTable
+        ''')
+        self.conn.commit()
+        print(f"Database {self.conn} cleared")
+        return
