@@ -54,6 +54,6 @@ def scrape():
     with open('ApartmentList_Listings.json', 'w', encoding='utf-8') as f:
         json.dump(all_housing_data, f, indent=4, ensure_ascii=False)
 
-
+#test
 
 
