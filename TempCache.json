@@ -1,0 +1,14 @@
+[
+    {
+        "unitIndex": 0,
+        "name": "Base Listing",
+        "address": "123 Test",
+        "numRooms": 0,
+        "utilsIncluded": false,
+        "rentAmt": 1234,
+        "listingURL": "TestURL",
+        "hostSite": "TestSite",
+        "notes": "This is for a basis",
+        "favorited": false
+    }
+]
