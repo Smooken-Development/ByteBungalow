@@ -67,7 +67,7 @@ def main():
                 searchFunc.getResults()
                 print(f"\n\n\n{'─'*198}\n      Sorted Listings:\n")
                 print(f"   ID    {'Listing Name':<50}  {'Rent':<11} Rooms Utils    Host Site       Address                          URL                              Notes  \n{'─'*198}")
-                for listing in searchFunc.temptList:
+                for listing in searchFunc.tempList:
                     print(listing)
                     print(f"{'─'*198}")
                 input("Presss any button to continue")
