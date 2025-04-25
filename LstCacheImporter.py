@@ -2,9 +2,18 @@ from DataStructures.Listings import Listing as Lst
 from BBDatabase import ListingDatabase
 from BBSearch import LstSearch
 import json
+import os
 
 tempListings = []
 tempPath = "TempCache.json"
+
+def runScrapers():
+    """A short script to run the webscrapers."""
+    # FINISHME:
+    print("Running Scrapers...")
+    os.system("python Scraper/WebScraper.py")
+    print("Scrapers Finished!")
+
 def readFromListingCache(path):
     """
     Reads listings from a JSON file and appends them to the tempListings list. Returns the list of listings.
@@ -86,13 +95,12 @@ def main():
     Reads listings from a JSON file and writes them to a database.
     
     This is the main script to write to the database."""
+    runScrapers()
     readFromListingCache(tempPath)
     writeListingsToDB()
-    print(f"[FINISHED] TempCache has been imported from {tempPath}!")
-
-# DELETE ME: Debug Code
-#tempPath = r"D:\1 - Computer Science Classes\ByteBungalow\ByteBungalow\DataStructures\tempListings.json"  # DELETE ME:
+    print(f"[FINISHED] All Listings has been imported from {tempPath}!")
 
 
 if __name__ == "__main__":
     main()
+    input("Press ENTER to continue...")
