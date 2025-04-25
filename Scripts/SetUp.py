@@ -26,6 +26,7 @@ def main():
 - (WelcomeMessage) Set whether or not to display the welcome message at the start.
 - (ScrapeFrequency) Set the frequency of data scraping in number of days between scrapes.
 - (ListingsPerScrape) Set the number of listings to grab per scraper run.
+- (ClearCache) Clear the TempCache of listings.
 - (Exit) To exit"""
 
     while True:
@@ -79,6 +80,16 @@ def main():
             except:
                 print("Error: Invalid listings per scrape input")
                 config["listingsPerScrape"] = 10
+        elif choice == "clear cache" or choice == "clearcache" or choice == "6":
+            # Clear cache
+            try:
+                with open("TempCache.json", "w") as f:
+                    json.dump([], f, indent=4)
+                print("Cache cleared")
+                input("Press ENTER to continue...")
+            except:
+                print("There was an error clearing the cache")
+                input("Press ENTER to continue...")
         elif choice == "exit" or choice == "0":
             # Exit
             break

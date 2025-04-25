@@ -11,7 +11,12 @@ def runScrapers():
     """A short script to run the webscrapers."""
     # FINISHME:
     print("Running Scrapers...")
-    os.system("python Scraper/WebScraper.py")
+    try:
+        os.system("python3 Scraper/ApartmentListScraper.py")
+    except:
+        print("ApartmentListScraper Failed! Skipping...")
+        
+    os.system("python3 Scraper/WebScraper.py")
     print("Scrapers Finished!")
 
 def readFromListingCache(path):

@@ -103,6 +103,7 @@ def main():
                         break
                     except:
                         print("Input must be 1, 2 or 0\n")
+                        category = None
             case 9: # Sort (desc)
                 searchFunc.criteria = None
                 searchFunc.order = None

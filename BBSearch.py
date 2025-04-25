@@ -124,20 +124,24 @@ class LstSearch:
         """
         try:
             # Matches criteria to listed criteria
-            match criteria:
-                case "rent":
-                    # if rent: sorts rent by asc or desc
-                    if order == "asc":
-                        self.tempList.sort(key=lambda x: x.rentAmt)
-                         
-                    else:
-                        self.tempList.sort(key=lambda x: x.rentAmt, reverse=True)
-                case "rooms":
-                    # if rooms: sorts rooms by asc or desc
-                    if order == "asc":
-                        self.tempList.sort(key=lambda x: x.numRooms)
-                    else:
-                        self.tempList.sort(key=lambda x: x.numRooms, reverse=True)
+            if criteria == "rent":
+                self.criteria = "rent"
+                # if rent: sorts rent by asc or desc
+                if order == "asc":
+                    self.order = "asc"
+                    self.tempList = sorted(self.tempList, key=lambda x: x.rentAmt)
+                else:
+                    self.order = "desc"
+                    self.tempList = sorted(self.tempList, key=lambda x: x.rentAmt, reverse=True)
+            elif criteria == "rooms":
+                self.criteria = "rooms"
+                # if rooms: sorts rooms by asc or desc
+                if order == "asc":
+                    self.order = "asc"
+                    self.tempList = sorted(self.tempList, key=lambda x: x.numRooms)
+                else:
+                    self.order = "desc"
+                    self.tempList = sorted(self.tempList, key=lambda x: x.numRooms, reverse=True)
         except Exception as e:
             print(f"There was an error sorting results for {self.criteria} in {self.order} order: {e}")
 
