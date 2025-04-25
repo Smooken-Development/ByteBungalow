@@ -16,8 +16,23 @@ def main():
 
     while True:
         os.system("cls")
+        
+        logo = (
+"""     ____        _       ____                          _               
+    |  _ \      | |     |  _ \                        | |              
+    | |_) |_   _| |_ ___| |_) |_   _ _ __   __ _  __ _| | _____      __
+    |  _ <| | | | __/ _ |  _ <| | | | '_ \ / _` |/ _` | |/ _ \ \ /\ / /
+    | |_) | |_| | ||  __| |_) | |_| | | | | (_| | (_| | | (_) \ V  V / 
+    |____/ \__, |\__\___|____/ \__,_|_| |_|\__, |\__,_|_|\___/ \_/\_/  
+            __/ |                           __/ |                      
+            |___/                           |___/                       """
+        )
+        
         print(f"{'─'*198}")
-        print("\tWelcome to ByteBungalow!",
+        print(logo)
+        print(f"{'─'*198}")
+        print("\tWelcome to the database interface!",
+        "\nBelow is where your active search parameters are displayed. Please select from the provided menu to filter your results.\n",
         "\n\tWhat would you like to do?")
         print(f"{'─'*198}")
 
@@ -52,8 +67,8 @@ def main():
             case 1: # Toggle favorited
                 searchFunc.setIsFavorited(not searchFunc.favorited)
             case 2: # Set rent
-                minRent = int(input("Min Rent: "))
-                maxRent = int(input("Max Rent: "))
+                minRent = float(input("Min Rent: "))
+                maxRent = float(input("Max Rent: "))
                 searchFunc.setRent(minRent, maxRent)
             case 3: # Set rooms
                 rooms = int(input("Rooms: "))
@@ -67,10 +82,10 @@ def main():
                 searchFunc.getResults()
                 print(f"\n\n\n{'─'*198}\n      Sorted Listings:\n")
                 print(f"   ID    {'Listing Name':<50}  {'Rent':<11} Rooms Utils    Host Site       Address                          URL                              Notes  \n{'─'*198}")
-                for listing in searchFunc.temptList:
+                for listing in searchFunc.tempList:
                     print(listing)
                     print(f"{'─'*198}")
-                input("Presss any button to continue")
+                input("Press ENTER to continue")
             case 8: # Sort (asc)
                 searchFunc.criteria = None
                 searchFunc.order = None
@@ -88,6 +103,7 @@ def main():
                         break
                     except:
                         print("Input must be 1, 2 or 0\n")
+                        category = None
             case 9: # Sort (desc)
                 searchFunc.criteria = None
                 searchFunc.order = None
@@ -110,7 +126,7 @@ def main():
                 break
             case _: # Default
                 print("Invalid Input")
-                input("Presss any button to continue")
+                input("Press ENTER to continue")
 
 
 

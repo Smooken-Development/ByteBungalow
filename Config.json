@@ -1,8 +1,0 @@
-{
-    "location-ZIP:": "Las Cruses, NM",
-    "userName": "your_username_here",
-    "displayWelcomeMessage": false,
-    "version": "0.0.1",
-    "scrapingFrequency": 7,
-    "listingsPerScrape": 10
-}
