@@ -1,3 +1,4 @@
+'''FINAL UI WITH SEARCH FILTERS'''
 from dash import Dash, State, html, dcc, Input, Output, dash_table
 import dash_bootstrap_components as dbc
 import matplotlib
@@ -26,11 +27,10 @@ for listing in searchFunc.getResults():                 # Convert list objects t
 
 print(listings)
 
-def aggregate_data(option, search_filter):
+def aggregate_data(option):
     data = {}
-    filtered_listings = [i for i in listings if i['hostSite'] in search_filter]
     if option == 'Average Rent':
-        for i in filtered_listings:             #clear list data
+        for i in listings:             #clear list data
             host_site = i['hostSite']                  #xaxis values
             rent_amount = i['rentAmt']
             if host_site not in data:               
@@ -40,7 +40,7 @@ def aggregate_data(option, search_filter):
             data[site] = sum(amounts) / len(amounts)
         return data
     elif option == 'Average Number of Rooms':
-        for i in filtered_listings:             #clear list data
+        for i in listings:             #clear list data
             host_site = i['hostSite']
             num_rooms = i['numRooms']
             if host_site not in data:             #new key-value for site and info
@@ -98,11 +98,6 @@ app.layout = html.Div([
                     {'label': 'Average Number of Rooms', 'value': 'Average Number of Rooms'}
                 ])], width=4)
     ]),
-    html.Div([
-    #TODO: Add percentile markers for clarity
-        dcc.RangeSlider( 0,20, marks= None, value=[0, 20], id="range-slider"),         #slider for range
-        html.Div(id="output-container-range-slider"),         
-    ]),       
     dbc.Row([                                                   #display graph
         dbc.Col([
             html.Img(id="matplotlib-image", src=f"data:image/png;base64,{image_base64}", style={"width": "100%"})
@@ -132,12 +127,11 @@ def update_table(search_value):
 @app.callback(
     Output("matplotlib-image", "src"),                  # input/output for graph
     [Input('results-table', 'data'),
-     Input('category', 'value'),
-     Input('search-filter', 'value')]  # Add this line
+     Input('category', 'value')]  # Add this line
 )
-def update_graph(table_data, category, search_filter):
+def update_graph(table_data, category):
     if category == 'Average Rent':
-        data = aggregate_data(category, search_filter)
+        data = aggregate_data(category)
         sites = list(data.keys())
         rent_avgs = list(data.values())
         fig, ax = plt.subplots(figsize=(10, 5))     
@@ -152,7 +146,7 @@ def update_graph(table_data, category, search_filter):
         image_base64 = base64.b64encode(buffer.getvalue()).decode("ascii")          #convert matplotlib graph to img
         return f"data:image/png;base64,{image_base64}"      #return graph
     elif category == 'Average Number of Rooms':
-        data = aggregate_data(category, search_filter)
+        data = aggregate_data(category)
         sites = list(data.keys())
         room_avgs = list(data.values())
         fig, ax = plt.subplots(figsize=(10, 5))     
