@@ -105,15 +105,10 @@ def main():
         elif choice == "ui" or choice == "5":
                 try:
                     webbrowser.open("http://127.0.0.1:8002/")
-                    os.system("python3 UI_final.py")
+                    os.system("python3 UX_Final2.py")
                 except:
                     print("UI Final Failed opening! Skipping...")
                 input("Press ENTER to continue...")
-                try:
-                    webbrowser.open("http://127.0.0.1:8002/")
-                    os.system("python3 UI_slider.py")
-                except:
-                    print("UI Slider Failed opening! Skipping...")
         elif choice == "exit" or choice == "0":
             return print("\n\n\tGoodbye!")
         else:
