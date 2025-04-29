@@ -18,6 +18,7 @@ def main():
         - (Listings) View the Listings Database
         - (Configs) Edit Configs
         - (Delete) Format the Database
+        - (UI) Run the User Interface (Experimental)
         - (Exit) Exit
 
 """
@@ -96,10 +97,23 @@ def main():
             elif confirmation == "exit" or confirmation == "0":
                 print("Cancelling operation...")
                 pass
+            
             else:
                 print("Invalid Input")
                 input("Press ENTER to continue...")
                 pass
+        elif choice == "ui" or choice == "5":
+                try:
+                    webbrowser.open("http://127.0.0.1:8002/")
+                    os.system("python3 UI_final.py")
+                except:
+                    print("UI Final Failed opening! Skipping...")
+                input("Press ENTER to continue...")
+                try:
+                    webbrowser.open("http://127.0.0.1:8002/")
+                    os.system("python3 UI_slider.py")
+                except:
+                    print("UI Slider Failed opening! Skipping...")
         elif choice == "exit" or choice == "0":
             return print("\n\n\tGoodbye!")
         else:
