@@ -28,17 +28,17 @@ def main():
             |___/                           |___/                       """
         )
         
-        print(f"{'─'*198}")
+        print(f"{'─'*80}")
         print(logo)
-        print(f"{'─'*198}")
+        print(f"{'─'*80}")
         print("\tWelcome to the database interface!",
         "\nBelow is where your active search parameters are displayed. Please select from the provided menu to filter your results.\n",
         "\n\tWhat would you like to do?")
-        print(f"{'─'*198}")
+        print(f"{'─'*80}")
 
         print(f"\t Search Parameters:\n\t\tFavorited: {searchFunc.favorited} \n\t\tMin Rent: {searchFunc.minRent} \n\t\tMax Rent: {searchFunc.maxRent} \n\t\tRooms: {searchFunc.numRooms} \n\t\tUtilities: {searchFunc.utilsIncluded} \n\t\tHost Site: {searchFunc.hostSite}")
 
-        print(f"{'─'*198}")
+        print(f"{'─'*80}")
 
         print("""   Menu:
             1. Set Favorited
@@ -80,11 +80,11 @@ def main():
                 searchFunc.setHostSite(hostSite)
             case 7: # Get results
                 searchFunc.getResults()
-                print(f"\n\n\n{'─'*198}\n      Sorted Listings:\n")
-                print(f"   ID    {'Listing Name':<50}  {'Rent':<11} Rooms Utils    Host Site       Address                          URL                              Notes  \n{'─'*198}")
+                print(f"\n\n\n{'─'*80}\n      Sorted Listings:\n")
+                print(f"   ID    {'Listing Name':<25}{'Rent':<11}Rooms Utils  Host Site       {'Address':<40}               URL                              Notes  \n{'─'*80}")
                 for listing in searchFunc.tempList:
                     print(listing)
-                    print(f"{'─'*198}")
+                    print(f"\n{'─'*80}")
                 input("Press ENTER to continue")
             case 8: # Sort (asc)
                 searchFunc.criteria = None

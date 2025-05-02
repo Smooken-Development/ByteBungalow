@@ -39,9 +39,9 @@ def main():
 
     while True:
         os.system("clear" if os.name == "posix" else "cls")
-        print(f"{'─'*198}")
+        print(f"{'─'*80}")
         print(logo)
-        print(f"{'─'*198}")
+        print(f"{'─'*80}")
         print(menu)
 
         # Convert to lower for ease-of-use

@@ -31,8 +31,7 @@ class Listing:
 
     def __str__(self):
         """Returns a string representation of the Listing object in tabled format"""
-        return f"{'✩' if self.favorited else ' ':<1} |{self.unitIndex:<3} | {self.name:<50} | ${self.rentAmt:<10} | {self.numRooms:<1} | {'✓' if self.utilsIncluded else ' ':<1} | {self.hostSite:<18} | {self.address:<30} | {self.listingURL:<30} | {self.notes:<25} |"
- 
+        return f"{'✩' if self.favorited else ' ':<1} |{self.unitIndex:<3} | {self.name:<23} | ${self.rentAmt:<8} | {self.numRooms:<1} | {'✓' if self.utilsIncluded else ' ':<1} | {self.hostSite:<17} | {self.address:<52} | {self.listingURL:<30} | {self.notes:<0}"
     def __repr__(self):
         """"""
         return f"Listing Object: {self.unitIndex} | {self.name} | {self.address} | {self.numRooms} | {self.utilsIncluded} | {self.rentAmt} | {self.listingURL} | {self.hostSite} | {self.notes} | {self.favorited}"
