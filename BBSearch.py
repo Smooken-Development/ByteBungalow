@@ -129,21 +129,92 @@ class LstSearch:
                 # if rent: sorts rent by asc or desc
                 if order == "asc":
                     self.order = "asc"
-                    self.tempList = sorted(self.tempList, key=lambda x: x.rentAmt)
+                    self.tempList = self.mergeSort(self.tempList, key=lambda x: x.rentAmt)
                 else:
                     self.order = "desc"
-                    self.tempList = sorted(self.tempList, key=lambda x: x.rentAmt, reverse=True)
+                    self.tempList = self.mergeSort(self.tempList, key=lambda x: x.rentAmt, reverse=True)
             elif criteria == "rooms":
                 self.criteria = "rooms"
                 # if rooms: sorts rooms by asc or desc
                 if order == "asc":
                     self.order = "asc"
-                    self.tempList = sorted(self.tempList, key=lambda x: x.numRooms)
+                    self.tempList = self.mergeSort(self.tempList, key=lambda x: x.numRooms)
                 else:
                     self.order = "desc"
-                    self.tempList = sorted(self.tempList, key=lambda x: x.numRooms, reverse=True)
+                    self.tempList = self.mergeSort(self.tempList, key=lambda x: x.numRooms, reverse=True)
         except Exception as e:
             print(f"There was an error sorting results for {self.criteria} in {self.order} order: {e}")
+
+    def mergeSort(self, arr, key=None, reverse=False):
+        """A merge sort implementation for lists.
+        
+        Usage:
+
+            arr (list): The list to be sorted
+            key (function): The criteria to sort by (default is None)
+            reverse (bool): Whether to sort in ascending or descending order (default is False)
+        """
+        if len(arr) <= 1:
+            return arr
+
+        mid = len(arr) // 2
+        left_half = arr[:mid]
+        right_half = arr[mid:]
+
+        left_half = self.mergeSort(left_half, key=key, reverse=reverse)
+        right_half = self.mergeSort(right_half, key=key, reverse=reverse)
+
+        return self.merge(left_half, right_half, key=key, reverse=reverse)
+
+    def merge(self, left, right, key=None, reverse=False):
+        """Merges two sorted lists into one sorted list.
+        
+        Usage:
+
+            left (list): The first sorted list
+            right (list): The second sorted list
+            key (function): The criteria to sort by (default is None)
+            reverse (bool): Whether to sort in ascending or descending order (default is False)
+        """
+        merged = []
+        left_index = right_index = 0
+
+        while left_index < len(left) and right_index < len(right):
+            if key is None:
+                if reverse:
+                    if left[left_index] > right[right_index]:
+                        merged.append(left[left_index])
+                        left_index += 1
+                    else:
+                        merged.append(right[right_index])
+                        right_index += 1
+                else:
+                    if left[left_index] < right[right_index]:
+                        merged.append(left[left_index])
+                        left_index += 1
+                    else:
+                        merged.append(right[right_index])
+                        right_index += 1
+            else:
+                if reverse:
+                    if key(left[left_index]) > key(right[right_index]):
+                        merged.append(left[left_index])
+                        left_index += 1
+                    else:
+                        merged.append(right[right_index])
+                        right_index += 1
+                else:
+                    if key(left[left_index]) < key(right[right_index]):
+                        merged.append(left[left_index])
+                        left_index += 1
+                    else:
+                        merged.append(right[right_index])
+                        right_index += 1
+
+        merged.extend(left[left_index:])
+        merged.extend(right[right_index:])
+
+        return merged
 
     # _____Setters_____
     # These are to make life simpler when we're doing the UI. When using these
