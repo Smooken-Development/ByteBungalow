@@ -85,8 +85,12 @@ app.layout = html.Div([
         id='results-table',
         columns=columns,
         data=listings,
-        page_size=30
+        page_size=30, 
+        style_table={'overflowX': 'auto', 'overflowY': 'auto'},          #table formatting
+        style_cell={'textAlign': 'left', 'padding': '5px'},          
+        style_header={'backgroundColor': 'lightgrey', 'fontWeight': 'bold'},
     ),
+    html.H2("Average Number oflistings by Host Site"),
     dbc.Row([
         dbc.Col([                                               #dropdown for aggregation types
             dcc.Dropdown(
@@ -96,9 +100,7 @@ app.layout = html.Div([
                 options=[
                     {'label': 'Average Rent', 'value': 'Average Rent'},
                     {'label': 'Average Number of Rooms', 'value': 'Average Number of Rooms'}
-                ])], width=4)
-    ]),
-    dbc.Row([
+                ])], width=4),
         dbc.Col([
             dcc.RangeSlider(
                 id='graph-range',
@@ -108,10 +110,10 @@ app.layout = html.Div([
                 marks={
                     0: {'label': '0'},
                     2000: {'label': '2000'}
-                }
-            )
-        ], width=10)
+                })], width=5)
     ]),
+    dbc.Row([
+            ]),
     dbc.Row([                                                   #display graph
         dbc.Col([
             html.Img(id="matplotlib-image", src=f"data:image/png;base64,{image_base64}", style={"width": "100%"})
